@@ -1,9 +1,9 @@
 安装laravel5
 ############
 
--  `安装 Composer <#install-composer>`__
--  `安装 Laravel <#install-laravel>`__
--  `环境要求 <#server-requirements>`__
+-  `安装 Composer`_
+-  `安装laravel`_
+-  `环境要求`_
 
 安装 Composer
 =============
@@ -65,7 +65,7 @@ Laravel 通过 `Composer <http://getcomposer.org>`__ 管理依赖.
 
 Laravel几乎不需要额外的配置，你就可以自由的开始开发！当然，你可能想检查下 ``config/app.php`` 配置文件和它的注释文档。它包含了一些配置项，比如 ``timezone`` 和 ``locale`` 可能需要根据你的应用而改变。
 
-当Laravel安装好以后，你还可以 `配置本地环境 </docs/5.0/configuration#environment-configuration>`__.
+当Laravel安装好以后，你还可以 :ref:`配置本地环境 <configuration_env_config>`.
 
     **注意:** 在生产环境下， ``app.debug`` 不应该设置为true，但本地环境下需要.
 
@@ -100,4 +100,4 @@ Laravel几乎不需要额外的配置，你就可以自由的开始开发！当�
         try_files $uri $uri/ /index.php?$query_string;
     }
 
-当然, 使用 `Homestead </docs/5.0/homestead>`__ 的话, 这个会自动配置好.
+当然, 使用 :doc:`Homestead <homestead>` 的话, 这个会自动配置好.

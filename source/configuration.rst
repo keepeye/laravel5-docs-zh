@@ -1,67 +1,50 @@
-Configuration
-=============
+配置
+###############
 
--  `Introduction <#introduction>`__
--  `After Installation <#after-installation>`__
--  `Accessing Configuration Values <#accessing-configuration-values>`__
--  `Environment Configuration <#environment-configuration>`__
--  `Configuration Caching <#configuration-caching>`__
--  `Maintenance Mode <#maintenance-mode>`__
--  `Pretty URLs <#pretty-urls>`__
+-  `导言`_
+-  `安装之后`_
+-  `获取配置项的值`_
+-  `环境配置`_
+-  `配置缓存`_
+-  `维护模式`_
+-  `漂亮的URL格式`_
 
- ## Introduction
+导言
+====
 
-All of the configuration files for the Laravel framework are stored in
-the ``config`` directory. Each option is documented, so feel free to
-look through the files and get familiar with the options available to
-you.
+所有的配置文件放在 ``config`` 目录里.每个配置选项都有文档注释，可以自己过一遍，熟悉下这些配置项是很有用的。
 
- ## After Installation
+安装之后
+=======
 
-Naming Your Application
-~~~~~~~~~~~~~~~~~~~~~~~
+命名你的应用
+-------------
 
-After installing Laravel, you may wish to "name" your application. By
-default, the ``app`` directory is namespaced under ``App``, and
-autoloaded by Composer using the `PSR-4 autoloading
-standard <http://www.php-fig.org/psr/psr-4/>`__. However, you may change
-the namespace to match the name of your application, which you can
-easily do via the ``app:name`` Artisan command.
+安装完Laravel之后，你可能想要为你的应用起个名字。默认来说， ``app`` 目录对应命名空间 ``App``，Composer使用 `PSR-4标准 <http://www.php-fig.org/psr/psr-4/>`__ 进行自动加载。当然，你可以通过Artisan命令 ``app:name`` 修改名字。
 
-For example, if your application is named "Horsefly", you could run the
-following command from the root of your installation:
+例如，如果你想要命名为 "Horsefly"，你可以在项目根目录下执行下面这条命令：
 
 ::
 
     php artisan app:name Horsefly
 
-Renaming your application is entirely optional, and you are free to keep
-the ``App`` namespace if you wish.
+重命名你的应用完全是没有必要的，如果你愿意的话可以自由使用 ``App`` 这个名字。
 
-Other Configuration
-~~~~~~~~~~~~~~~~~~~
+别的配置
+----------
 
-Laravel needs very little configuration out of the box. You are free to
-get started developing! However, you may wish to review the
-``config/app.php`` file and its documentation. It contains several
-options such as ``timezone`` and ``locale`` that you may wish to change
-according to your location.
+Laravel几乎不需要额外的配置，你就可以自由的开始开发！当然，你可能想检查下 ``config/app.php`` 配置文件和它的注释文档。它包含了一些配置项，比如 ``timezone`` 和 ``locale`` 可能需要根据你的应用而改变。
 
-Once Laravel is installed, you should also `configure your local
-environment </docs/5.0/configuration#environment-configuration>`__.
+当Laravel安装好以后，你还可以 :ref:`配置环境<configuration_env_config>`.
 
-    **Note:** You should never have the ``app.debug`` configuration
-    option set to ``true`` for a production application.
+    **注意:** 在生产环境下， ``app.debug`` 不应该设置为true，但本地环境下需要.
 
- ### Permissions
+*Laravel还需要 ``storage`` 目录的可写权限。*
 
-Laravel may require one set of permissions to be configured: folders
-within ``storage`` require write access by the web server.
+获取配置项的值
+=============
 
- ## Accessing Configuration Values
-
-You may easily access your configuration values using the ``Config``
-facade:
+你可以使用 ``Config`` 外观类很容易的获取配置值:
 
 ::
 
@@ -69,77 +52,55 @@ facade:
 
     Config::set('app.timezone', 'America/Chicago');
 
-You may also use the ``config`` helper function:
+你也可以用 ``config`` 助手函数:
 
 ::
 
     $value = config('app.timezone');
 
- ## Environment Configuration
+.. _configuration_env_config:
 
-It is often helpful to have different configuration values based on the
-environment the application is running in. For example, you may wish to
-use a different cache driver locally than you do on your production
-server. It's easy using environment based configuration.
+环境配置
+===========
 
-To make this a cinch, Laravel utilizes the
-`DotEnv <https://github.com/vlucas/phpdotenv>`__ PHP library by Vance
-Lucas. In a fresh Laravel installation, the root directory of your
-application will contain a ``.env.example`` file. If you install Laravel
-via Composer, this file will automatically be renamed to ``.env``.
-Otherwise, you should rename the file manually.
+根据应用运行环境使用不同的配置值通常是很有用的。比如，你希望本地和线上服务器用的不同的缓存驱动。通过环境配置很容易实现。
 
-All of the variables listed in this file will be loaded into the
-``$_ENV`` PHP super-global when your application receives a request. You
-may use the ``env`` helper to retrieve values from these variables. In
-fact, if you review the Laravel configuration files, you will notice
-several of the options already using this helper!
+为了让这个功能更加容易实现，Laravel使用了Vance Lucas写的PHP类 `DotEnv <https://github.com/vlucas/phpdotenv>`__ 。在新安装的Laravel里，应用根目录包含一个文件 ``.env.example``。如果你是通过Composer安装的，这个文件会自动重命名为 ``.env`` ，否则你需要自己重命名它。
 
-Feel free to modify your environment variables as needed for your own
-local server, as well as your production environment. However, your
-``.env`` file should not be committed to your application's source
-control, since each developer / server using your application could
-require a different environment configuration.
+这个文件中列出来的所有变量会在你的应用接收到一个请求时自动加载到PHP全局变量 ``$_ENV`` 中。你可以使用助手函数 ``env`` 取回这些变量，实际上如果你检查Laravel的那些配置文件，你会发现一些选项已经使用了这个助手函数。
 
-If you are developing with a team, you may wish to continue including a
-``.env.example`` file with your application. By putting place-holder
-values in the example configuration file, other developers on your team
-can clearly see which environment variables are needed to run your
-application.
+根据你自己的本地服务器环境需求随意修改环境变量。不管怎样你的 ``.env`` 文件不应当提交到版本库里，使用你的应用的每个开发者或服务器可能包含一个不同的环境配置。
 
-Accessing The Current Application Environment
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+如果你在一个团队中进行开发，你可能希望在应用中继续含有一个 ``.env.example`` 文件。通过在示例配置文件中预置一些值，队友就可以清楚的知道哪些环境变量是需要配置的。
 
-You may access the current application environment via the
-``environment`` method on the ``Application`` instance:
+获取当前的应用环境
+-----------------
+
+你可以通过 ``Application`` 实例的 ``environment`` 方法访问当前应用环境：
 
 ::
 
     $environment = $app->environment();
 
-You may also pass arguments to the ``environment`` method to check if
-the environment matches a given value:
+
+你还可以传参数给这个方法来检查是环境是否符合其中一个：
 
 ::
 
     if ($app->environment('local'))
     {
-        // The environment is local
+        // 是local环境
     }
 
     if ($app->environment('local', 'staging'))
     {
-        // The environment is either local OR staging...
+        // 是 local 或 staging...
     }
 
-To obtain an instance of the application, resolve the
-``Illuminate\Contracts\Foundation\Application`` contract via the
-`service container </docs/5.0/container>`__. Of course, if you are
-within a `service provider </docs/5.0/providers>`__, the application
-instance is available via the ``$this->app`` instance variable.
 
-An application instance may also be accessed via the ``app`` helper of
-the ``App`` facade:
+要获取application的实例，通过 :doc:`服务容器 <container>` 完成 ``Illuminate\Contracts\Foundation\Application`` 约定。当然，如果在 :doc:`服务提供器 <providers>` 中，可以通过 ``$this->app`` 获取。
+
+application实例还可以通过 ``app`` 助手函数和 ``App`` 外观类访问：
 
 ::
 
@@ -147,63 +108,50 @@ the ``App`` facade:
 
     $environment = App::environment();
 
- ## Configuration Caching
+配置缓存
+=========
 
-To give your application a little speed boost, you may cache all of your
-configuration files into a single file using the ``config:cache``
-Artisan command. This will combine all of the configuration options for
-your application into a single file which can be loaded quickly by the
-framework.
+为了让应用启动稍微快一些，你可以使用 ``config:cache`` Artisan命令缓存所有配置文件到一个单独的文件中，单个文件可以更快的被框架加载。
 
-You should typically run the ``config:cache`` command as part of your
-deployment routine.
+在开发时你需要经常执行 ``config:cache`` 命令。
 
- ## Maintenance Mode
+维护模式
+=========
 
-When your application is in maintenance mode, a custom view will be
-displayed for all requests into your application. This makes it easy to
-"disable" your application while it is updating or when you are
-performing maintenance. A maintenance mode check is included in the
-default middleware stack for your application. If the application is in
-maintenance mode, an ``HttpException`` will be thrown with a status code
-of 503.
+当你的应用处于维护模式，所有请求都将显示为一个自定义的试图。这使得你在升级或者维护时很容易"关闭"应用。维护模式的检查已经被包含在应用默认的中间件栈里了。如果应用处于维护模式，一个 ``HttpException`` 异常会伴随503状态码被抛出。
 
-To enable maintenance mode, simply execute the ``down`` Artisan command:
+开启维护模式，只需要执行 ``down`` Artisan命令：
 
 ::
 
     php artisan down
 
-To disable maintenance mode, use the ``up`` command:
+相对的，关闭维护模式，使用 ``up`` 命令：
 
 ::
 
     php artisan up
 
-Maintenance Mode Response Template
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The default template for maintenance mode responses is located in
-``resources/views/errors/503.blade.php``.
+维护模式响应模板
+---------------
 
-Maintenance Mode & Queues
-~~~~~~~~~~~~~~~~~~~~~~~~~
+默认的维护模式响应视图的模板位于 ``resources/views/errors/503.blade.php`` 。
 
-While your application is in maintenance mode, no `queued
-jobs </docs/5.0/queues>`__ will be handled. The jobs will continue to be
-handled as normal once the application is out of maintenance mode.
+维护模式下的队列任务
+-------------------
 
- ## Pretty URLs
+当你的应用处于维护模式下，任何 :doc:`队列任务<queues>` 都不会被处理。任务将在应用处于非维护模式时继续执行。
 
-Apache
-~~~~~~
+漂亮的URL格式
+=============
 
-The framework ships with a ``public/.htaccess`` file that is used to
-allow URLs without ``index.php``. If you use Apache to serve your
-Laravel application, be sure to enable the ``mod_rewrite`` module.
+**Apache**
 
-If the ``.htaccess`` file that ships with Laravel does not work with
-your Apache installation, try this one:
+首先保证你的Apache ``mod_rewrite`` 模块已经开启.
+框架默认有一个 ``public/.htaccess`` 文件可以实现隐藏 ``index.php`` 的访问.
+
+如果无效的话，可以试试下面的规则:
 
 ::
 
@@ -214,11 +162,9 @@ your Apache installation, try this one:
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [L]
 
-Nginx
-~~~~~
+**Nginx**
 
-On Nginx, the following directive in your site configuration will allow
-"pretty" URLs:
+在Nginx配置文件中通过下面的指令实现隐藏 ``index.php``:
 
 ::
 
@@ -226,5 +172,4 @@ On Nginx, the following directive in your site configuration will allow
         try_files $uri $uri/ /index.php?$query_string;
     }
 
-Of course, when using `Homestead </docs/5.0/homestead>`__, pretty URLs
-will be configured automatically.
+当然, 使用 :doc:`Homestead <homestead>` 的话, 这个会自动配置好.
