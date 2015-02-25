@@ -37,7 +37,9 @@ Laravel几乎不需要额外的配置，你就可以自由的开始开发！当�
 
 当Laravel安装好以后，你还可以 :ref:`配置环境<configuration_env_config>`.
 
-    **注意:** 在生产环境下， ``app.debug`` 不应该设置为true，但本地环境下需要.
+.. note::
+
+    在生产环境下， ``app.debug`` 不应该设置为true，但本地环境下需要.
 
 *Laravel还需要 ``storage`` 目录的可写权限。*
 
@@ -98,7 +100,7 @@ Laravel几乎不需要额外的配置，你就可以自由的开始开发！当�
     }
 
 
-要获取application的实例，通过 :doc:`服务容器 <container>` 完成 ``Illuminate\Contracts\Foundation\Application`` 约定。当然，如果在 :doc:`服务提供器 <providers>` 中，可以通过 ``$this->app`` 获取。
+要获取application的实例，可以通过 :doc:`服务容器 <container>` 中的 ``Illuminate\Contracts\Foundation\Application`` contract。当然，如果在 :doc:`服务提供器 <providers>` 中，可以通过 ``$this->app`` 获取。
 
 application实例还可以通过 ``app`` 助手函数和 ``App`` 外观类访问：
 
