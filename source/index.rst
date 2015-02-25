@@ -7,11 +7,17 @@ laravel5 中文手册
 
 本文档为本人从 `Laravel官网 <http://laravel.com>`__ 尝试翻译而来。
 
-翻译过程中还参考了 `<http://laravel-china.org/docs/5.0/>`__ 
-
 文档源文件是根据官方提供的markdown文件转换成rst格式，再使用sphinx生成html格式在线阅读。
 
-我已在github开了一个项目: `点击查看 <https://github.com/keepeye/laravel5-docs-zh>`__ ，你可以克隆项目，自己本地构建html离线文档～
+	`sphinx中文手册 <http://zh-sphinx-doc.readthedocs.org/en/latest/contents.html>`__
+
+我已在github开了一个项目：
+	
+	`点击查看 <https://github.com/keepeye/laravel5-docs-zh>`__
+
+你可以克隆项目，自己本地构建html离线文档～
+
+部分翻译参考 `<http://laravel-china.org/docs/5.0/>`__ 
 
 交流
 ----
